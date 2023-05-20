@@ -56,6 +56,21 @@ exports.meet = async (req, res) => {
   }
 };
 
+exports.startMeet = async (req, res) => {
+  try {
+    const room_id = req.params.id;
+    var room = await Rooms.findOne({ room_id: room_id });
+    if (room) {
+        res.render('meet', { title: 'Express' });
+    }else{
+        res.render('meet', { title: 'Express' });
+    }
+  } catch (err) {
+    console.log("error:", err);
+    res.redirect("/");
+  }
+};
+
 const randomId = function (length = 6) {
   return Math.random()
     .toString(36)

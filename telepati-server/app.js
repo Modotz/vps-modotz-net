@@ -69,7 +69,7 @@ app.use(function(err, req, res, next) {
  * Get port from environment and store in Express.
  */
 
-global.ServerHost = "http://192.168.100.3"; // rumah
+global.ServerHost = "http://localhost"; // rumah
 
 var port = process.env.PORT || 1987;
 app.set('port', port);
