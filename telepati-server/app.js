@@ -35,7 +35,7 @@ var usersRouter = require('./routes/users');
 
 var app = express();
 
-app.use(logger('dev'));
+//app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
@@ -92,8 +92,8 @@ app.use('/users', usersRouter);
  * Get port from environment and store in Express.
  */
 
-//global.ServerHost = "http://localhost"; // rumah
-global.ServerHost = "http://192.168.100.3"; // rumah
+global.ServerHost = "http://localhost"; // rumah
+//global.ServerHost = "http://192.168.100.3"; // rumah
 
 var port = process.env.PORT || 1987;
 app.set('port', port);

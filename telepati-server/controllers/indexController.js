@@ -4,8 +4,9 @@ var http = require("http");
 var path = require("path");
 const Rooms = require("../models/roomsModel");
 
-exports.meet = async (req, res) => {
+exports.initMeeting = async (req, res) => {
   try {
+    console.log("Init Meeting:");
     const room_id = req.body.room_id;
     var room = await Rooms.findOne({ room_id: room_id });
     if (room) {
@@ -21,7 +22,6 @@ exports.meet = async (req, res) => {
         topic: null,
         start_time: null,
         end_time: null,
-        participants: null,
         status: true,
       };
       await Rooms.create(data);
@@ -33,34 +33,40 @@ exports.meet = async (req, res) => {
   }
 };
 
-exports.startMeet = async (req, res) => {
+exports.startMeeting = async (req, res) => {
   try {
     const room_id = req.params.id;
     var room = await Rooms.findOne({ room_id: room_id });
     if (room) {
-      var participant = {
-        client_id: "",
-        username: "Modotz",
-        host: true,
-        status: true,
-      };
+      // var participant = {
+      //   client_id: "",
+      //   username: "Modotz",
+      //   host: true,
+      //   status: true,
+      // };
 
-      Rooms.findOneAndUpdate(
-        { _id: room._id },
-        { $push: { participants: participant } },
-        function (error, success) {
-          if (error) {
-            console.log(error);
-          } else {
-            //console.log(success);
-            console.log("success");
-          }
-        }
-      );
+      // Rooms.findOneAndUpdate(
+      //   { _id: room._id },
+      //   { $push: { participants: participant } },
+      //   function (error, success) {
+      //     if (error) {
+      //       console.log(error);
+      //     } else {
+      //       //console.log(success);
+      //       console.log("success");
+      //     }
+      //   }
+      // );
 
-      res.render("meet", { room_id: room_id });
+      var locals = {
+        title : 'Telepati',
+        description : 'Meeting wong jowo',
+        pages : 'Meeting Rooms',
+      }
+
+      res.render("meet", {layout: false, room_id, locals });
     } else {
-      res.render("meet", { title: room_id });
+      res.render("meet", {layout: false, title: room_id });
     }
   } catch (err) {
     console.log("error:", err);
@@ -78,7 +84,7 @@ exports.joinMeeting = async (req, res) => {
     if (room) {
       var participant = {
         client_id: client_id,
-        username: 'username',
+        username: username,
         host: false,
         status: true,
       };
@@ -112,3 +118,4 @@ const randomId = function (length = 6) {
     .toString(36)
     .substring(2, length + 2);
 };
+
