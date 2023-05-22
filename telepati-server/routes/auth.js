@@ -3,15 +3,15 @@ var router = express.Router();
 
 const {
   signup,
-} = require("../controllers/authentication_controller");
+} = require("../controllers/authController");
 
 /* GET authentication page. */
-router.get("/", function (req, res, next) {
-  res.render("authentication/sigin", { title: "Express" });
+router.get("/signin", function (req, res, next) {
+  res.render("auth/signin", { layout: false, title: "Express" });
 });
 
 router.get("/signup", function (req, res, next) {
-  res.render("authentication/signup", { title: "Express" });
+  res.render("auth/signup", { layout: false,  title: "Express" });
 });
 
 router.route("/signup").post(signup);

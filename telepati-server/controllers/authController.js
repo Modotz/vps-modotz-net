@@ -2,7 +2,7 @@ var request = require("request");
 var querystring = require("querystring");
 var http = require("http");
 var path = require("path");
-const Users = require("../models/users_model");
+const Users = require("../models/usersModel");
 
 exports.signup = async (req, res) => {
   try {
