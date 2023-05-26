@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="apple-touch-icon" sizes="76x76" href="/assets/img/apple-icon.png">
+  <link rel="icon" type="image/png" href="/assets/img/favicon.png">
+  <title>
+    Modotz
+  </title>
+  <!--     Fonts and icons     -->
+  <link rel="stylesheet" type="text/css"
+    href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
+  <!-- Nucleo Icons -->
+  <link href="/assets/css/nucleo-icons.css" rel="stylesheet" />
+  <link href="/assets/css/nucleo-svg.css" rel="stylesheet" />
+  <!-- Font Awesome Icons -->
+  <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+  <!-- Material Icons -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+  <!-- CSS Files -->
+  <link id="pagestyle" href="/assets/css/material-dashboard.css?v=3.0.5" rel="stylesheet" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+
+  <style>
+    body {
+      /* background-color: #aa21aa;
+      font-size: 30px; */
+    }
+
+    .display_none {
+      display: none;
+    }
+
+    .getname {
+      padding: 5px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 500px;
+      /* position the div in center */
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="xxxx">
+    <div class="row video-container" id="video-container">
+      <div class="col-sm">
+        <video class='local-video w-100' id='local-video' muted autoplay></video>
+      </div>
+    </div>
+
+    <div id="get-name" class="">
+      <div class="getname">
+        <div class="card card-frame">
+          <div class="card-body">
+            <div class="">
+              <h3>Join Meeting</h3>
+              <div class="input-group input-group-outline">
+                <input type="text"  name="username" id="username" class="form-control" placeholder="ex: Jhone">
+              </div>
+              <div class="text-center mt-3">
+                <button type="button" id="btn-join-meeting" class="btn bg-gradient-info w-100">Join meeting</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <input type="hidden" name="room-id" id="room-id" value="<%= room_id %>">
+      <input type="hidden" name="client-id" id="client-id" value="">
+    </div>
+  </div>
+  <!--   Core JS Files   -->
+  <script src="/assets/js/jquery-3.6.1.min.js"></script>
+  <script src="https://www.webrtc-experiment.com/screenshot.js"></script>
+  <script src="https://www.webrtc-experiment.com/RecordRTC.js"></script>
+  <script src="https://www.webrtc-experiment.com/common.js"></script>
+  <script src='/socket.io/socket.io.js'></script>
+  <script src='/scripts/store.js' type='module'></script>
+  <script src='/scripts/ws.js' type='module'></script>
+  <script src='/scripts/webRTCHandler.js' type='module'></script>
+
+  <script src="/assets/js/core/popper.min.js"></script>
+  <script src="/assets/js/core/bootstrap.min.js"></script>
+  <script src="/assets/js/plugins/perfect-scrollbar.min.js"></script>
+  <script src="/assets/js/plugins/smooth-scrollbar.min.js"></script>
+  <script src="/assets/js/plugins/choices.min.js"></script>
+  <script src='/scripts/main.js' type='module'></script>
+
+</body>
+
+</html>
