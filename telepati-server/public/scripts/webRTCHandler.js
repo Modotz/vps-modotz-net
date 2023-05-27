@@ -244,13 +244,15 @@ export const switchVideoCamera = async () => {
   );
   console.log(videoDevices);
   deviceId++;
+
   if (deviceId >= videoDevices.length) deviceId = 0;
   var constraints = {
-    audio: true, //{ deviceId: { exact: localVideo.srcObject.getAudioTracks()[0].id } },
-    video: { deviceId: { exact: videoDevices[deviceId].deviceId } },
+    audio: true,
+    video: { deviceId: { exact: videoDevices[deviceId].deviceId } , video: {facingMode: 'environment'}},
   };
 
   var newStream = await navigator.mediaDevices.getUserMedia(constraints);
+
   localVideo.srcObject = newStream;
 
   clientList.forEach((participant_id) => {
