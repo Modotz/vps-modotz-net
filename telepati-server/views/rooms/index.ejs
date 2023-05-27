@@ -45,13 +45,37 @@
       left: 50%;
       transform: translate(-50%, -50%);
     }
+    
+    .settings_buttons_container {
+      display: flex;
+      align-items: center;
+      flex-direction: row;
+      margin-right: 25px;
+    }
+
+    .call_button_large {
+      width: 80px;
+      height: 40px;
+      border-radius: 30px;
+      background: #fc5d5b;
+      transition: 0.3s;
+    }
+
+    .call_button_small {
+      width: 40px;
+      height: 40px;
+      border-radius: 40px;
+      transition: 0.3s;
+      margin-left: 5px;
+      margin-right: 5px;
+    }
   </style>
 </head>
 
 <body>
   <div class="xxxx">
     <div class="row video-container" id="video-container">
-      <div class="col-sm">
+      <div class="col-12 col-md-6">
         <video class='local-video w-100' id='local-video' muted autoplay></video>
       </div>
     </div>
@@ -63,7 +87,7 @@
             <div class="">
               <h3>Join Meeting</h3>
               <div class="input-group input-group-outline">
-                <input type="text"  name="username" id="username" class="form-control" placeholder="ex: Jhone">
+                <input type="text" name="username" id="username" class="form-control" placeholder="ex: Jhone">
               </div>
               <div class="text-center mt-3">
                 <button type="button" id="btn-join-meeting" class="btn bg-gradient-info w-100">Join meeting</button>
@@ -77,6 +101,26 @@
       <input type="hidden" name="room-id" id="room-id" value="<%= room_id %>">
       <input type="hidden" name="client-id" id="client-id" value="">
     </div>
+    <footer class="footer position-absolute  bottom-2 py-2 w-100">
+      <div class="container">
+        <div class="align-items-center justify-content-lg-center">
+          <div class='settings_buttons_container' id='settings_buttons'>
+            <button class='call_button_small bg-gradient-dark' id='micButton'>
+              <img src='/assets/img/icons/micOn.png' id='mic_button_image1'/>
+            </button>
+            <button class='call_button_small bg-gradient-dark' id='micButton'>
+              <img src='/assets/img/icons/switchCamera.png' id='mic_button_image1'/>
+            </button>
+            <button class='call_button_small bg-gradient-dark' id='micButton'>
+              <img src='/assets/img/icons/share.png' id='mic_button_image1'/>
+            </button>
+            <button class='call_button_large bg-gradient-dark' id='micButton'>
+              <img src='/assets/img/icons/hangUp.png' id='mic_button_image1'/>
+            </button>
+          </div>  
+        </div>
+      </div>
+    </footer>
   </div>
   <!--   Core JS Files   -->
   <script src="/assets/js/jquery-3.6.1.min.js"></script>

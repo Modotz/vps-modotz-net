@@ -9,21 +9,21 @@ const configuration = {
     {
       urls: "stun:openrelay.metered.ca:80",
     },
-    {
-      urls: "turn:openrelay.metered.ca:80",
-      username: "openrelayproject",
-      credential: "openrelayproject",
-    },
-    {
-      urls: "turn:openrelay.metered.ca:443",
-      username: "openrelayproject",
-      credential: "openrelayproject",
-    },
-    {
-      urls: "turn:openrelay.metered.ca:443?transport=tcp",
-      username: "openrelayproject",
-      credential: "openrelayproject",
-    },
+    // {
+    //   urls: "turn:openrelay.metered.ca:80",
+    //   username: "openrelayproject",
+    //   credential: "openrelayproject",
+    // },
+    // {
+    //   urls: "turn:openrelay.metered.ca:443",
+    //   username: "openrelayproject",
+    //   credential: "openrelayproject",
+    // },
+    // {
+    //   urls: "turn:openrelay.metered.ca:443?transport=tcp",
+    //   username: "openrelayproject",
+    //   credential: "openrelayproject",
+    // },
   ],
 };
 
@@ -159,11 +159,31 @@ export const createPeerConnection = (client_id) => {
 };
 
 export const handleConnectedUserHangedUp = (client_id) => {
+  console.log("Hangedup client_id:", client_id);
   if (peerConection[client_id]) {
-    console.log("Hangedup client_id:", client_id);
     peerConection[client_id].close();
     peerConection[client_id] = null;
     dataChannel[client_id].close();
+
+    // Remove div element
+    const element = document.getElementById("col-sm" + client_id);
+    element.remove();
+
+    for (var i = 0; i <= peerConection.length - 1; i++) {
+      if (peerConection[i]["client_id"] == client_id) {
+        peerConection.splice(i, 1);
+        console.log("delete peer array");
+      }
+    }
+
+    for (var i = 0; i <= dataChannel.length - 1; i++) {
+      if (dataChannel[i]["client_id"] == client_id) {
+        dataChannel.splice(i, 1);
+        console.log("delete dataChannel array");
+      }
+    }
+
+    console.log("peerConection Close");
   }
 };
 
@@ -197,7 +217,7 @@ const createRemoteVideo = async (stream, client_id) => {
   console.log("Create Remote Video");
 
   var videoFrame = document.createElement("div");
-  videoFrame.className = "col-sm";
+  videoFrame.className = "col-12 col-md-6";
   videoFrame.id = "col-sm" + client_id;
 
   let newVid = document.createElement("video");
@@ -205,7 +225,7 @@ const createRemoteVideo = async (stream, client_id) => {
   newVid.id = "participant_video_" + client_id;
   newVid.playsinline = false;
   newVid.autoplay = true;
-  newVid.className = "local_video";
+  newVid.className = "local-video w-100";
   videoFrame.appendChild(newVid);
   var videoContainer = document.getElementById("video-container");
   videoContainer.appendChild(videoFrame);
