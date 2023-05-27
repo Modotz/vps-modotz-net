@@ -3,6 +3,8 @@ import * as store from "./store.js";
 
 let peerConection = {};
 let dataChannel = {};
+let clientList = [];
+let screenSharingStream;
 
 const configuration = {
   iceServers: [
@@ -91,6 +93,7 @@ export const createPeerConnection = (client_id) => {
   if (!peerConection[client_id]) {
     console.log("creat peer connection for :", client_id);
     peerConection[client_id] = new RTCPeerConnection(configuration);
+    clientList.push(client_id);
 
     console.log("creat dataChannel for :", client_id);
     dataChannel[client_id] = peerConection[client_id].createDataChannel("chat");
@@ -217,7 +220,7 @@ const createRemoteVideo = async (stream, client_id) => {
   console.log("Create Remote Video");
 
   var videoFrame = document.createElement("div");
-  videoFrame.className = "col-12 col-md-6";
+  videoFrame.className = "col-12 col-md-6 col-sm-4";
   videoFrame.id = "col-sm" + client_id;
 
   let newVid = document.createElement("video");
@@ -229,4 +232,132 @@ const createRemoteVideo = async (stream, client_id) => {
   videoFrame.appendChild(newVid);
   var videoContainer = document.getElementById("video-container");
   videoContainer.appendChild(videoFrame);
+};
+
+// Switch Camera
+var deviceId = 0;
+export const switchVideoCamera = async () => {
+  const localVideo = document.getElementById("local-video");
+
+  var videoDevices = (await navigator.mediaDevices.enumerateDevices()).filter(
+    (device) => device.kind === "videoinput"
+  );
+  console.log(videoDevices);
+  deviceId++;
+  if (deviceId >= videoDevices.length) deviceId = 0;
+  var constraints = {
+    audio: true, //{ deviceId: { exact: localVideo.srcObject.getAudioTracks()[0].id } },
+    video: { deviceId: { exact: videoDevices[deviceId].deviceId } },
+  };
+
+  var newStream = await navigator.mediaDevices.getUserMedia(constraints);
+  localVideo.srcObject = newStream;
+
+  clientList.forEach((participant_id) => {
+    console.log(participant_id);
+    var videoSender = peerConection[participant_id]
+      .getSenders()
+      .filter((sender) => sender.track.kind === "video")[0];
+    videoSender.replaceTrack(newStream.getVideoTracks()[0]);
+  });
+};
+
+export const switchBetweenCameraAndScreenSharing = async () => {
+  try {
+    console.log("Screen Sharing");
+    let screenSharingActive = store.getState().screenSharingActive;
+    const startShare = "/assets/img/icons/micOn.png";
+    const stopShare = "/assets/img/icons/micOff.png";
+
+    if (screenSharingActive) {
+      const localStream = store.getState().localStream;
+      clientList.forEach((participant_id) => {
+        console.log("participant_id :", participant_id);
+        const senders = peerConection[participant_id].getSenders();
+
+        const sender = senders.find((sender) => {
+          return sender.track.kind === localStream.getVideoTracks()[0].kind;
+        });
+
+        if (sender) {
+          sender.replaceTrack(localStream.getVideoTracks()[0]);
+        }
+      });
+
+      // stop screen sharing stream
+      store
+        .getState()
+        .screenSharingStream.getTracks()
+        .forEach((track) => track.stop());
+        document.getElementById("share-button").className = "call_button_small" ;
+        document.querySelector('#share-button').innerHTML  = "<img src='/assets/img/icons/share.png'/>";
+    } else {
+      screenSharingStream = await navigator.mediaDevices.getDisplayMedia({
+        video: true,
+      });
+      store.setScreenSharingStream(screenSharingStream);
+
+      // event button stop share
+      screenSharingStream.getVideoTracks()[0].onended = function () {
+        console.log("Stop shared");
+
+        const localStream = store.getState().localStream;
+        clientList.forEach((participant_id) => {
+          console.log("participant_id :", participant_id);
+          const senders = peerConection[participant_id].getSenders();
+
+          const sender = senders.find((sender) => {
+            return sender.track.kind === localStream.getVideoTracks()[0].kind;
+          });
+
+          if (sender) {
+            sender.replaceTrack(localStream.getVideoTracks()[0]);
+          }
+        });
+
+        // stop screen sharing stream
+        store
+          .getState()
+          .screenSharingStream.getTracks()
+          .forEach((track) => track.stop());
+          document.getElementById("share-button").className = "call_button_small" ;
+          document.querySelector('#share-button').innerHTML  = "<img src='/assets/img/icons/share.png'/>";
+      };
+
+      clientList.forEach((participant_id) => {
+        console.log("item: ", participant_id);
+        const senders = peerConection[participant_id].getSenders();
+        const sender = senders.find((sender) => {
+          return (
+            sender.track.kind === screenSharingStream.getVideoTracks()[0].kind
+          );
+        });
+
+        if (sender) {
+          sender.replaceTrack(screenSharingStream.getVideoTracks()[0]);
+          //socketIO.emit("screen-sharing", shareClientId);
+        }
+      });
+
+      document.getElementById("share-button").className = "share-button" ;
+      document.querySelector('#share-button').innerText = 'Stop Sharing';
+    }
+    //updateLocalVideo(screenSharingStream);
+    store.setScreenSharingActive(!screenSharingActive);
+
+    //updateLocalVideo(screenSharingStream);
+  } catch (err) {
+    console.error(
+      "error occured when trying to get screen sharing stream",
+      err
+    );
+  }
+};
+
+export const updateLocalVideo = (stream) => {
+  // const remote_video = document.getElementById("remote_video");
+  // remote_video.srcObject = stream;
+  // remote_video.addEventListener("loadedmetadata", () => {
+  //   remote_video.play();
+  // });
 };

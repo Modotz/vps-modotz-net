@@ -4,7 +4,19 @@ var http = require("http");
 var path = require("path");
 const Rooms = require("../models/roomsModel");
 
-
+exports.meet = async (req, res) => {
+  try {
+    var locals = {
+      title : 'Telepati',
+      description : 'Meeting wong jowo',
+      pages : 'Users',
+    }
+    res.render("rooms/meet", { layout: false, locals });
+  } catch (err) {
+    console.log('error:', err)
+    res.redirect("/");
+  }
+};
 
 exports.startMeeting = async (req, res) => {
   try {
