@@ -42,7 +42,6 @@ exports.initMeeting = async (req, res) => {
     var room = await Rooms.findOne({ room_id: room_id });
     if (room) {
       console.log("join room:", room_id);
-      res.redirect("rooms/" + room_id);
       res.status(200).json({ room_status: "join room", room });
     } else {
       console.log("create room:", room_id);
