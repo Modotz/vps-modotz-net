@@ -220,7 +220,7 @@ const createRemoteVideo = async (stream, client_id) => {
   console.log("Create Remote Video");
 
   var videoFrame = document.createElement("div");
-  videoFrame.className = "col-12 col-md-6 col-sm-4";
+  videoFrame.className = "col-md-3 col-sm-3 col-xs-12 my-2";
   videoFrame.id = "col-sm" + client_id;
 
   let newVid = document.createElement("video");
@@ -228,7 +228,7 @@ const createRemoteVideo = async (stream, client_id) => {
   newVid.id = "participant_video_" + client_id;
   newVid.playsinline = false;
   newVid.autoplay = true;
-  newVid.className = "local-video w-100";
+  newVid.className = "local-video";
   videoFrame.appendChild(newVid);
   var videoContainer = document.getElementById("video-container");
   videoContainer.appendChild(videoFrame);

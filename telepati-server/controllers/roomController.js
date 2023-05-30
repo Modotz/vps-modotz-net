@@ -18,6 +18,20 @@ exports.meet = async (req, res) => {
   }
 };
 
+exports.meet2 = async (req, res) => {
+  try {
+    var locals = {
+      title : 'Telepati',
+      description : 'Meeting wong jowo',
+      pages : 'Users',
+    }
+    res.render("rooms/meet2", { layout: false, locals });
+  } catch (err) {
+    console.log('error:', err)
+    res.redirect("/");
+  }
+};
+
 exports.startMeeting = async (req, res) => {
   try {
     const room_id = req.params.id;

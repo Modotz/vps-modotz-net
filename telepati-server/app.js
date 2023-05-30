@@ -7,9 +7,17 @@ var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 var http = require("http");
+const https = require("https");
+const fs = require("fs");
 const shortid = require("shortid");
 const mongoose = require("mongoose");
 const Rooms = require("./models/roomsModel");
+
+// insert your own ssl certificate and keys
+const options = {
+  key: fs.readFileSync("key.pem"),
+  cert: fs.readFileSync("cert.pem"),
+};
 
 mongoose.set("strictQuery", true);
 mongoose.connect(
@@ -38,11 +46,12 @@ var app = express();
  * Get port from environment and store in Express.
  */
 global.ServerHost = "http://localhost"; // rumah
-//global.ServerHost = "http://192.168.100.5"; // rumah
+//global.ServerHost = "https://192.168.100.5"; // rumah
 
 var port = process.env.PORT || 1987;
 app.set("port", port);
-var server = http.createServer(app);
+//const server = http.createServer(app);
+const server = https.createServer(options, app);
 const io = require("socket.io")(server);
 
 //app.use(logger('dev'));
