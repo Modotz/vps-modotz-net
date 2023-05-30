@@ -54,7 +54,12 @@ var port = process.env.PORT || 1987;
 app.set("port", port);
 const server = http.createServer(app);
 //const server = https.createServer(options, app);
-const io = require("socket.io")(server);
+const io = require("socket.io")(server,{
+  cors: {
+      origin: "*",
+    },
+});
+
 
 //app.use(logger('dev'));
 app.use(express.json());
