@@ -57,7 +57,7 @@ exports.initMeeting = async (req, res) => {
         status: true,
       };
       var newRoom = await Rooms.create(data);
-      res.status(200).json({ room_status: "join room", newRoom });
+      res.status(200).json({ room_status: "create room", newRoom });
     }
   } catch (err) {
     console.log("error:", err);
