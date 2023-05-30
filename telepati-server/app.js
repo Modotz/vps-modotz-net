@@ -41,6 +41,8 @@ var membersRouter = require("./routes/members");
 var usersRouter = require("./routes/users");
 var roomsRouter = require("./routes/rooms");
 
+var meetingsApiRouter = require("./api/routes/meetings");
+
 var app = express();
 /**
  * Get port from environment and store in Express.
@@ -89,6 +91,8 @@ app.use("/auth", authRouter);
 app.use("/members", membersRouter);
 app.use("/users", usersRouter);
 app.use("/rooms", roomsRouter);
+
+app.use("/api/meetings", meetingsApiRouter);
 
 //==================================================
 
