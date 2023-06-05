@@ -235,8 +235,13 @@ const createRemoteVideo = async (stream, client_id, data) => {
   clientName.id = "client-name" + client_id;
   clientName.innerHTML = data.username;
 
+  let clientId = document.createElement("span");
+  clientId.id = "client-id" + client_id;
+  clientId.innerHTML = client_id;
+
   videoFrame.appendChild(newVid);
   videoFrame.appendChild(clientName);
+  videoFrame.appendChild(clientId);
   var videoContainer = document.getElementById("video-container");
 
   videoContainer.appendChild(videoFrame);
