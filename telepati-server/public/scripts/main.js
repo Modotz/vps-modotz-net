@@ -19,6 +19,7 @@ const roomId = document.getElementById("room-id");
 const clientId = document.getElementById("client-id");
 const username = document.getElementById("username");
 const personalName = document.getElementById("personal-name");
+const personalId = document.getElementById("personal-id");
 
 function init() {
   const socket = io("/");
@@ -38,6 +39,7 @@ function start() {
 const btnJoinMeeting = document.getElementById("btn-join-meeting");
 btnJoinMeeting.addEventListener("click", () => {
   personalName.innerHTML = username.value;
+  personalId.innerHTML = clientId.value;
   $.ajax({
     type: "POST",
     url: "joinMeeting",
