@@ -48,14 +48,14 @@ var app = express();
 /**
  * Get port from environment and store in Express.
  */
-//global.ServerHost = "http://localhost"; // rumah
+global.ServerHost = "http://localhost"; // rumah
 //global.ServerHost = "https://192.168.100.5"; // rumah
-global.ServerHost = "https://192.168.18.139"; // rumah
+//global.ServerHost = "https://192.168.18.139"; // rumah
 
 var port = process.env.PORT || 1987;
 app.set("port", port);
-//const server = http.createServer(app);
-const server = https.createServer(options, app);
+const server = http.createServer(app);
+//const server = https.createServer(options, app);
 
 const io = require("socket.io")(server,{
   cors: {
