@@ -31,7 +31,7 @@ const configuration = {
 
 export const handlePreOffer = (data) => {
   const socketId = store.getState().socketId;
-  createPeerConnection(data.client_id);
+  createPeerConnection(data.client_id, data);
   const answerData = {
     from_client_id: socketId,
     to_client_id: data.client_id,
@@ -42,7 +42,7 @@ export const handlePreOffer = (data) => {
 };
 
 export const handlePreOfferAnswer = (data) => {
-  createPeerConnection(data.from_client_id);
+  createPeerConnection(data.from_client_id, data);
   sendWebRTCOffer(data);
 };
 
@@ -89,7 +89,7 @@ export const handleWebRTCCandidate = async (data) => {
   }
 };
 
-export const createPeerConnection = (client_id) => {
+export const createPeerConnection = (client_id, data) => {
   if (!peerConection[client_id]) {
     console.log("creat peer connection for :", client_id);
     peerConection[client_id] = new RTCPeerConnection(configuration);
@@ -153,7 +153,7 @@ export const createPeerConnection = (client_id) => {
     peerConection[client_id].onconnectionstatechange = (event) => {
       if (peerConection[client_id].connectionState === "connected") {
         console.log("peer connected");
-        createRemoteVideo(remoteStream, client_id);
+        createRemoteVideo(remoteStream, client_id, data);
       } else {
         console.log("peer filed");
       }
@@ -216,8 +216,9 @@ const sendWebRTCOffer = async (data) => {
   ws.sendDataUsingWebRTCSignaling(sendData);
 };
 
-const createRemoteVideo = async (stream, client_id) => {
+const createRemoteVideo = async (stream, client_id, data) => {
   console.log("Create Remote Video");
+  console.log(data)
 
   var videoFrame = document.createElement("div");
   videoFrame.className = "col-md-3 col-sm-3 col-xs-12 my-2";
@@ -228,10 +229,18 @@ const createRemoteVideo = async (stream, client_id) => {
   newVid.id = "participant_video_" + client_id;
   newVid.playsinline = false;
   newVid.autoplay = true;
-  newVid.className = "local-video";
+  newVid.className = "local-video border rounded-2";
+
+  let clientName = document.createElement("span");
+  clientName.id = "client-name" + client_id;
+  clientName.innerHTML = data.username;
+
   videoFrame.appendChild(newVid);
+  videoFrame.appendChild(clientName);
   var videoContainer = document.getElementById("video-container");
+
   videoContainer.appendChild(videoFrame);
+
 };
 
 // Switch Camera

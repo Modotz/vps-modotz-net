@@ -53,10 +53,11 @@ export const registerSocketEvents = (socket, client_share) => {
 
 };
 
-export const JoinRoom = (roomId) => {
+export const JoinRoom = (roomId, username) => {
   const data = {
     client_id: myClientId,
     room_id: roomId,
+    username: username,
   };
   socketIO.emit("join-room", data);
 };

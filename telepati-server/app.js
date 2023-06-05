@@ -127,7 +127,7 @@ io.on("connection", (socket) => {
   });
 
   socket.on("join-room", async (data) => {
-    console.log("join-room :", data.client_id);
+    console.log("join-room :", data);
 
     await Rooms.updateOne(
       {
