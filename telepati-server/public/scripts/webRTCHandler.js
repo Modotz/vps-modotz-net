@@ -132,9 +132,20 @@ export const createPeerConnection = (client_id, data) => {
       }
     };
 
+    peerConection[client_id].onconnectionstatechange = (event) => {
+      if (peerConection[client_id].connectionState === "connected") {
+        console.log("peer connected");
+        
+      } else {
+        console.log("peer filed");
+        //handleConnectedUserHangedUp(client_id);
+      }
+    };
+
     //receiving tracks
     const remoteStream = new MediaStream();
     const localStream = store.getState().localStream;
+    createRemoteVideo(remoteStream, client_id, data);
 
     for (const track of localStream.getTracks()) {
       peerConection[client_id].addTrack(track, localStream);
@@ -148,16 +159,6 @@ export const createPeerConnection = (client_id, data) => {
         stream: remoteStream,
         track: event.track,
       };
-    };
-
-    peerConection[client_id].onconnectionstatechange = (event) => {
-      if (peerConection[client_id].connectionState === "connected") {
-        console.log("peer connected");
-        createRemoteVideo(remoteStream, client_id, data);
-      } else {
-        console.log("peer filed");
-        //handleConnectedUserHangedUp(client_id);
-      }
     };
   }
 };
