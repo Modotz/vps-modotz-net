@@ -156,6 +156,7 @@ export const createPeerConnection = (client_id, data) => {
         createRemoteVideo(remoteStream, client_id, data);
       } else {
         console.log("peer filed");
+        handleConnectedUserHangedUp(client_id);
       }
     };
   }
