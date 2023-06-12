@@ -1,6 +1,3 @@
-:root{
-  --participant : 4;
-}
 
 .wrapper {
   height: 100%;
@@ -28,7 +25,18 @@
   flex-wrap: wrap;
 }
 
+.video-2 {
+  position: relative;
+  height: 70%;
+  width: 45%;
+  margin: 10px;
+  background: #3E3C41;
+  /* border: 1px solid rgb(243, 238, 238); */
+  border-radius: 5px;
+}
+
 .video-4 {
+  position: relative;
   height: 45%;
   width: 45%;
   margin: 10px;
@@ -39,12 +47,26 @@
 
 .video-6 {
   position: relative;
+  width: 30%;
+  height: 48%;
+  margin: 10px;
+  background: #3E3C41;
+  /* border: 1px solid rgb(243, 238, 238); */
+  border-radius: 5px;
+}
+
+.video-66 {
+  position: relative;
   width: 40%;
   height: 30%;
   margin: 10px;
   background: #3E3C41;
   /* border: 1px solid rgb(243, 238, 238); */
   border-radius: 5px;
+}
+
+.image-participant{
+  width: 100%; height:100%; border-radius: 5px;
 }
 
 .mic_button_small {
@@ -63,7 +85,7 @@
   padding: 2px;
 }
 
-div.video-6 .mic-button-container {
+.mic-button-container {
   position: absolute;
   top: 5px;
   right: 5px;
@@ -76,6 +98,20 @@ div.video-6 .mic-button-container {
   margin: auto;
   align-items: center;
 }
+
+/* div.video-6 .mic-button-container {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  width: 26px;
+  height: 26px;
+  background: rgba(0, 0, 0, 0.4);
+  border-radius: 26px;
+  transition: 0.3s;
+  display: flex;
+  margin: auto;
+  align-items: center;
+} */
 
 .call_button_large {
   width: 50px;

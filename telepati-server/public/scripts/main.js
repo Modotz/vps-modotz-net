@@ -14,7 +14,7 @@ let constraints = {
 };
 
 const localVideo = document.getElementById("local-video");
-const getName = document.getElementById("get-name");
+const sidebar = document.getElementById("sidebar");
 const roomId = document.getElementById("room-id");
 const clientId = document.getElementById("client-id");
 const username = document.getElementById("username");
@@ -51,7 +51,9 @@ btnJoinMeeting.addEventListener("click", () => {
   })
     .done(function (response) {
       ws.JoinRoom(roomId.value, username.value);
-      hideElement(getName);
+      hideElement(sidebar);
+      replaceElement('content','content-max');
+      replaceElement('footer','footer');
     })
     .fail(function (error) {
       alert(error.responseText);
@@ -62,6 +64,16 @@ const hideElement = (element) => {
   if (!element.classList.contains("display_none")) {
     element.classList.add("display_none");
   }
+};
+
+const showElement = (element) => {
+  if (element.classList.contains("display_none")) {
+    element.classList.remove("display_none");
+  }
+};
+
+const replaceElement = (elementid, className) => {
+  document.getElementById(elementid).classList = className;
 };
 
 start();

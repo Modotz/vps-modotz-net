@@ -3,6 +3,7 @@ import * as store from "./store.js";
 
 let peerConection = {};
 let dataChannel = {};
+var participants = 1;
 let clientList = [];
 let screenSharingStream;
 
@@ -135,10 +136,11 @@ export const createPeerConnection = (client_id, data) => {
     peerConection[client_id].onconnectionstatechange = (event) => {
       if (peerConection[client_id].connectionState === "connected") {
         console.log("peer connected");
-        
-      } else {
-        console.log("peer filed");
-        //handleConnectedUserHangedUp(client_id);
+        console.log("peer count:", peerConection);
+
+        for (var i = 0; i <= peerConection.length - 1; i++) {
+          console.log("Participant :", peerConection[i]["client_id"]);
+        }
       }
     };
 
@@ -171,15 +173,47 @@ export const handleConnectedUserHangedUp = (client_id) => {
     dataChannel[client_id].close();
 
     // Remove div element
-    const element = document.getElementById("col-sm" + client_id);
-    element.remove();
+    // const element = document.getElementById("col-sm" + client_id);
+    // element.remove();
 
-    for (var i = 0; i <= peerConection.length - 1; i++) {
-      if (peerConection[i]["client_id"] == client_id) {
-        peerConection.splice(i, 1);
-        console.log("delete peer array");
+    console.log("hangup participant :", client_id);
+    const element = document.getElementById(client_id);
+    element.remove();
+    participants--;
+
+    for (var i = 0; i <= clientList.length - 1; i++) {
+      if (clientList[i] == client_id) {
+        clientList.splice(i, 1);
+        console.log("delete clientList array");
       }
     }
+
+    if (participants < 3) {
+      document.getElementById("WEKEDEWE").classList = "video-2";
+      clientList.forEach((item) => {
+        console.log(item);
+        document.getElementById(item).classList = "video-2";
+      });
+    }
+
+    if (participants < 5) {
+      document.getElementById("WEKEDEWE").classList = "video-4";
+      clientList.forEach((item) => {
+        console.log(item);
+        document.getElementById(item).classList = "video-4";
+      });
+    }
+
+
+    console.log("peer count after remove:", peerConection);
+    //peerConection.removeTrack(client_id);
+
+    // for (var i = 0; i <= peerConection.length - 1; i++) {
+    //   if (peerConection[i]["client_id"] == client_id) {
+    //     peerConection.splice(i, 1);
+    //     console.log("delete peer array");
+    //   }
+    // }
 
     for (var i = 0; i <= dataChannel.length - 1; i++) {
       if (dataChannel[i]["client_id"] == client_id) {
@@ -220,34 +254,94 @@ const sendWebRTCOffer = async (data) => {
 
 const createRemoteVideo = async (stream, client_id, data) => {
   console.log("Create Remote Video");
-  console.log(data)
+  //console.log(data)
 
+  console.log("add new participant");
   var videoFrame = document.createElement("div");
-  videoFrame.className = "col-md-3 col-sm-3 col-xs-12 my-2";
-  videoFrame.id = "col-sm" + client_id;
+  videoFrame.className = "video-2";
+  videoFrame.id = client_id;
 
   let newVid = document.createElement("video");
-  newVid.srcObject = stream;
-  newVid.id = "participant_video_" + client_id;
+  newVid.id = "participant_video" + client_id;
+  newVid.className = "video-participant";
   newVid.playsinline = false;
   newVid.autoplay = true;
-  newVid.className = "local-video border rounded-2";
+  newVid.srcObject = stream;
 
-  let clientName = document.createElement("span");
-  clientName.id = "client-name" + client_id;
+  let newImgMic = document.createElement("img");
+  //newImgMic.src = "/assets/img/icons/unmute-18.png";
+  newImgMic.id = "mic_button_image" + client_id;
+
+  let newBtnMic = document.createElement("button");
+  newBtnMic.id = "mute_button" + client_id;
+  newBtnMic.className = "mic_button_small";
+  newBtnMic.onclick = function () {
+    
+  };
+  newBtnMic.appendChild(newImgMic);
+
+  let micContainer = document.createElement("div");
+  micContainer.className = "mic-button-container";
+  micContainer.appendChild(newBtnMic);
+
+  let spanName = document.createElement("span");
+  spanName.id = "client-name" + client_id;
+  spanName.innerHTML = data.username;
+
+  var clientName = document.createElement("div");
+  clientName.className = "name-container";
+  clientName.id = "name-container" + client_id;
   clientName.innerHTML = data.username;
-
-  let clientId = document.createElement("span");
-  clientId.id = "client-id" + client_id;
-  clientId.innerHTML = client_id;
+  clientName.appendChild(spanName);
 
   videoFrame.appendChild(newVid);
+  videoFrame.appendChild(micContainer);
   videoFrame.appendChild(clientName);
-  videoFrame.appendChild(clientId);
   var videoContainer = document.getElementById("video-container");
-
   videoContainer.appendChild(videoFrame);
+  participants++;
 
+  if (participants > 2) {
+    document.getElementById("WEKEDEWE").classList = "video-4";
+    clientList.forEach((item) => {
+      console.log(item);
+      document.getElementById(item).classList = "video-4";
+    });
+  }
+
+  if (participants > 4) {
+    document.getElementById("WEKEDEWE").classList = "video-6";
+    clientList.forEach((item) => {
+      console.log(item);
+      document.getElementById(item).classList = "video-6";
+    });
+  }
+
+  // var videoFrame = document.createElement("div");
+  // videoFrame.className = "col-md-3 col-sm-3 col-xs-12 my-2";
+  // videoFrame.id = "col-sm" + client_id;
+
+  // let newVid = document.createElement("video");
+  // newVid.srcObject = stream;
+  // newVid.id = "participant_video_" + client_id;
+  // newVid.playsinline = false;
+  // newVid.autoplay = true;
+  // newVid.className = "local-video border rounded-2";
+
+  // let clientName = document.createElement("span");
+  // clientName.id = "client-name" + client_id;
+  // clientName.innerHTML = data.username;
+
+  // let clientId = document.createElement("span");
+  // clientId.id = "client-id" + client_id;
+  // clientId.innerHTML = client_id;
+
+  // videoFrame.appendChild(newVid);
+  // videoFrame.appendChild(clientName);
+  // videoFrame.appendChild(clientId);
+  // var videoContainer = document.getElementById("video-container");
+
+  // videoContainer.appendChild(videoFrame);
 };
 
 // Switch Camera
@@ -264,7 +358,10 @@ export const switchVideoCamera = async () => {
   if (deviceId >= videoDevices.length) deviceId = 0;
   var constraints = {
     audio: true,
-    video: { deviceId: { exact: videoDevices[deviceId].deviceId } , video: {facingMode: 'environment'}},
+    video: {
+      deviceId: { exact: videoDevices[deviceId].deviceId },
+      video: { facingMode: "environment" },
+    },
   };
 
   var newStream = await navigator.mediaDevices.getUserMedia(constraints);
@@ -307,8 +404,9 @@ export const switchBetweenCameraAndScreenSharing = async () => {
         .getState()
         .screenSharingStream.getTracks()
         .forEach((track) => track.stop());
-        document.getElementById("share-button").className = "call_button_small" ;
-        document.querySelector('#share-button').innerHTML  = "<img src='/assets/img/icons/share.png'/>";
+      document.getElementById("share-button").className = "call_button_small";
+      document.querySelector("#share-button").innerHTML =
+        "<img src='/assets/img/icons/share.png'/>";
     } else {
       screenSharingStream = await navigator.mediaDevices.getDisplayMedia({
         video: true,
@@ -338,8 +436,9 @@ export const switchBetweenCameraAndScreenSharing = async () => {
           .getState()
           .screenSharingStream.getTracks()
           .forEach((track) => track.stop());
-          document.getElementById("share-button").className = "call_button_small" ;
-          document.querySelector('#share-button').innerHTML  = "<img src='/assets/img/icons/share.png'/>";
+        document.getElementById("share-button").className = "call_button_small";
+        document.querySelector("#share-button").innerHTML =
+          "<img src='/assets/img/icons/share.png'/>";
       };
 
       clientList.forEach((participant_id) => {
@@ -357,8 +456,8 @@ export const switchBetweenCameraAndScreenSharing = async () => {
         }
       });
 
-      document.getElementById("share-button").className = "share-button" ;
-      document.querySelector('#share-button').innerText = 'Stop Sharing';
+      document.getElementById("share-button").className = "share-button";
+      document.querySelector("#share-button").innerText = "Stop Sharing";
     }
     //updateLocalVideo(screenSharingStream);
     store.setScreenSharingActive(!screenSharingActive);

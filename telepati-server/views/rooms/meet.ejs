@@ -5,109 +5,300 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Telepati</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
-        crossorigin="anonymous"></script>
-    <link href="/stylesheets/meet_style.css" rel="stylesheet" type="text/css">
+    <link rel="icon" type="image/png" href="/assets/img/favicon.png">
+    <title>Document</title>
+    <!-- Font Awesome Icons -->
+    <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+    <!-- Material Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+    <link id="pagestyle" href="/assets/css/material-dashboard.css?v=3.0.5" rel="stylesheet" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <style>
+        .wrapper {
+            height: 100%;
+            width: 100%;
+        }
+
+        .header {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            background: #1E1F20;
+            color: #ffffff;
+        }
+
+        .sidebar {
+            position: fixed;
+            width: 400px;
+            height: 100%;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+        }
+
+        .box1 {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .box2 {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            padding: 20px;
+        }
+
+        .display_none {
+            display: none;
+        }
+
+        .text-name {
+            height: 30px;
+            width: 200px;
+        }
+
+        .joint-button {
+            height: 30px;
+            width: 200px;
+            margin-top: 5px;
+        }
+
+        .content {
+            position: fixed;
+            left: 400px;
+            top: 0;
+            width: calc(100% - 400px);
+            height: 100%;
+            background: #cbd4de;
+        }
+
+        .content-max {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: calc(100% - 75px);
+            background: #cbd4de;
+        }
+
+        .video-container {
+            position: relative;
+        }
+
+        .local-video {
+            width: 100%;
+            height: 100%;
+            border-radius: 5px;
+          }
+
+        .footer {
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            height: 75px;
+            background: #1E1F20;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        @media screen and (max-height: 450px) {
+            .sidebar {
+                padding-top: 15px;
+            }
+
+            .sidebar a {
+                font-size: 18px;
+            }
+        }
+    </style>
 </head>
 
 <body>
     <div class="wrapper">
-        <nav id="sidebar">
-            <div class="sidebar-header">
-                <h3>Bootstrap Sidebar</h3>
+        <div class="sidebar bg-gradient-dark" id="sidebar">
+            <div class="box1">
+                <h4 class="text-white"> Join Meeting</h2>
+                    <h6 class="text-white"> Transaksi Tatap Muka Virtual</h2>
+            </div>
+            <div class="box2">
+                <div class="input-group input-group-outline my-3">
+                    <input type="text" class="form-control text-white w-100" value="Indra Prakoso">
+                </div>
+                <button class="btn bg-gradient-info w-100" id="join-button">Join</button>
             </div>
 
-            <ul class="list-unstyled components">
-                <p>Dummy Heading</p>
-                <li class="active">
-                    <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Home</a>
-                    <ul class="collapse list-unstyled" id="homeSubmenu">
-                        <li>
-                            <a href="#">Home 1</a>
-                        </li>
-                        <li>
-                            <a href="#">Home 2</a>
-                        </li>
-                        <li>
-                            <a href="#">Home 3</a>
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#">About</a>
-                </li>
-                <li>
-                    <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false"
-                        class="dropdown-toggle">Pages</a>
-                    <ul class="collapse list-unstyled" id="pageSubmenu">
-                        <li>
-                            <a href="#">Page 1</a>
-                        </li>
-                        <li>
-                            <a href="#">Page 2</a>
-                        </li>
-                        <li>
-                            <a href="#">Page 3</a>
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#">Portfolio</a>
-                </li>
-                <li>
-                    <a href="#">Contact</a>
-                </li>
-            </ul>
-        </nav>
-        <div class="content">
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                <div class="container-fluid">
+            <div class="box2 mt-1">
+                <div class="row">
+                    <div class="col-3">
+                        <div class="btn-group">
+                            <button class="btn btn btn-outline-white btn-sm dropdown-toggle" type="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fas fa-microphone text-lg"></i>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">Action</a></li>
+                                <li><a class="dropdown-item" href="#">Another action</a></li>
+                                <li><a class="dropdown-item" href="#">Something else here</a></li>
+                            </ul>
+                        </div>
 
-                    <button type="button" id="sidebarCollapse" class="btn btn-info">
-                        <i class="fas fa-align-left"></i>
-                        <span>Toggle Sidebar</span>
-                    </button>
-
+                    </div>
+                    <div class="col-3">
+                        <div class="btn-group">
+                            <button class="btn btn btn-outline-white btn-sm dropdown-toggle" type="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fas fa-volume-down text-lg"></i>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">Action</a></li>
+                                <li><a class="dropdown-item" href="#">Another action</a></li>
+                                <li><a class="dropdown-item" href="#">Something else here</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="btn-group">
+                            <button class="btn btn btn-outline-white btn-sm dropdown-toggle" type="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fas fa-video text-lg"></i>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">Action</a></li>
+                                <li><a class="dropdown-item" href="#">Another action</a></li>
+                                <li><a class="dropdown-item" href="#">Something else here</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="btn-group">
+                            <button class="btn btn btn-outline-white btn-sm dropdown-toggle" type="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fas fa-cog text-lg"></i>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#"><i class="fas fa-image text-lg"></i>
+                                        Backgroung</a></li>
+                                <li><a class="dropdown-item" href="#"><i class="fas fa-cog text-lg"></i> Settings</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
-            </nav>
-            <h1>Hello, world!</h1>
+            </div>
+
+            <div class="box2">
+                <span class="text-white"><i class="fas fa-circle text-success text-lg"></i> Your microphone is working
+                    properly
+                </span>
+            </div>
+
+        </div>
+        <div class="content" id="content">
+            <div class="video-container" id="video-container">
+                <video class='local-video' id='local-video' muted autoplay></video>
+            </div>
+        </div>
+
+        <div class="display_none" id="footer">
+            <div class="d-flex align-item-center justify-content-center">
+                <button class='call_button_small bg-dark' id='mic-button'>
+                    <img src='/assets/img/icons/micOn.png' id='image-mic-button' />
+                </button>
+                <button class='call_button_large bg-red' id='hangup-button'>
+                    <img src='/assets/img/icons/hangUp.png' id='image-mic-button2' />
+                </button>
+                <button class='call_button_small bg-dark' id='switch-camera-button'>
+                    <img src='/assets/img/icons/switchCamera.png' />
+                </button>
+            </div>
         </div>
     </div>
-    <footer class="footer fixed-bottom justify-content-center">
-        <div class="d-flex align-item-center justify-content-center">
-            <button class='call_button_small bg-dark' id='mic-button'>
-                <img src='/assets/img/icons/micOn.png' id='image-mic-button' />
-            </button>
-            <button class='call_button_large bg-red' id='hangup-button'>
-                <img src='/assets/img/icons/hangUp.png' id='image-mic-button2' />
-            </button>
-            <button class='call_button_small bg-dark' id='switch-camera-button'>
-                <img src='/assets/img/icons/switchCamera.png' />
-            </button>
-        </div>
-    </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.0/dist/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js"
-        integrity="sha384-zYPOMqeu1DAVkHiLqWBUTcbYfZ8osu1Nd6Z89ify25QV9guujx43ITvfi12/QExE"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.min.js"
-        integrity="sha384-Y4oOpwW3duJdCWv5ly8SCFYWqFDsfob/3GkgExXKV4idmbt98QcxXYs9UoXAB7BZ"
-        crossorigin="anonymous"></script>
-
+    <!--   Core JS Files   -->
+    <script src="/assets/js/core/popper.min.js"></script>
+    <script src="/assets/js/core/bootstrap.min.js"></script>
+    <script src="/assets/js/plugins/perfect-scrollbar.min.js"></script>
+    <script src="/assets/js/plugins/smooth-scrollbar.min.js"></script>
+    <script src="/assets/js/plugins/choices.min.js"></script>
     <script>
         $(document).ready(function () {
 
-            $('#sidebarCollapse').on('click', function () {
-                $('#sidebar').toggleClass('active');
-            });
+            let constraints = {
+                audio: true,
+                video: {
+                    width: {
+                        max: 1280,
+                    },
+                    height: {
+                        max: 720,
+                    },
+                },
+            };
 
+            const localVideo = document.getElementById("local-video");
+            navigator.mediaDevices.getUserMedia(constraints).then((stream) => {
+                //localVideo.srcObject = stream;
+            });
         });
+        if (document.getElementById('choices-state')) {
+            var element = document.getElementById('choices-state');
+            const example = new Choices(element, {
+                searchEnabled: false
+            });
+        };
+
+        var joinButton = document.getElementById('join-button');
+        joinButton.addEventListener("click", () => {
+            const sidebar = document.getElementById("sidebar");
+            hideElement(sidebar);
+            replaceElement('content','content-max');
+            replaceElement('footer','footer');
+        });
+
+        const hideElement = (element) => {
+            if (!element.classList.contains("display_none")) {
+                element.classList.add("display_none");
+            }
+        };
+
+        const showElement = (element) => {
+            if (element.classList.contains("display_none")) {
+                element.classList.remove("display_none");
+            }
+        };
+
+        const replaceElement = (elementid, className) => {
+            document.getElementById(elementid).classList=className;
+        };
     </script>
+    <!-- Kanban scripts -->
+    <script src="/assets/js/plugins/dragula/dragula.min.js"></script>
+    <script src="/assets/js/plugins/jkanban/jkanban.js"></script>
+    <script>
+        var win = navigator.platform.indexOf('Win') > -1;
+        if (win && document.querySelector('#sidenav-scrollbar')) {
+            var options = {
+                damping: '0.5'
+            }
+            Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
+        }
+    </script>
+    <!-- Github buttons -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
+    <script src="/assets/js/material-dashboard.min.js?v=3.0.5"></script>
 </body>
 
 </html>
