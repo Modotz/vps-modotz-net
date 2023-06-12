@@ -17,6 +17,12 @@ const configuration = {
       username: "modotz",
       credential: "modotz1234",
     },
+    {
+      urls: "turn:143.198.86.130:443",
+      username: "modotz",
+      credential: "modotz",
+    },
+
     // {
     //   urls: "turn:openrelay.metered.ca:80",
     //   username: "openrelayproject",
