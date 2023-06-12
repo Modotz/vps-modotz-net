@@ -13,20 +13,25 @@ const configuration = {
       urls: "stun:openrelay.metered.ca:80",
     },
     {
-      urls: "turn:openrelay.metered.ca:80",
-      username: "openrelayproject",
-      credential: "openrelayproject",
+      urls: "turn:143.198.86.130:3478",
+      username: "modotz",
+      credential: "modotz1234",
     },
-    {
-      urls: "turn:openrelay.metered.ca:443",
-      username: "openrelayproject",
-      credential: "openrelayproject",
-    },
-    {
-      urls: "turn:openrelay.metered.ca:443?transport=tcp",
-      username: "openrelayproject",
-      credential: "openrelayproject",
-    },
+    // {
+    //   urls: "turn:openrelay.metered.ca:80",
+    //   username: "openrelayproject",
+    //   credential: "openrelayproject",
+    // },
+    // {
+    //   urls: "turn:openrelay.metered.ca:443",
+    //   username: "openrelayproject",
+    //   credential: "openrelayproject",
+    // },
+    // {
+    //   urls: "turn:openrelay.metered.ca:443?transport=tcp",
+    //   username: "openrelayproject",
+    //   credential: "openrelayproject",
+    // },
   ],
 };
 
