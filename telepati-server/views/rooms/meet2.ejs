@@ -22,7 +22,7 @@
 
             <div class="video-container" id="video-container">
                 <div class="video-2" id="WEKEDEWE">
-                    <img class="image-participant" src="">
+                    <img class="image-participant" src="/assets/img/ivana-square.jpg">
                     <div class="mic-button-container">
                         <button class='mic_button_small' id='mute_button'>
                             <img src='/assets/img/icons/unmute-18.png' id='mic_button_image' />
@@ -110,23 +110,9 @@
                             console.log("delete clientList array");
                         }
                     }
-
-                    if (participants < 3) {
-                        document.getElementById('WEKEDEWE').classList="video-2";
-                        clientList.forEach((item) => {
-                            console.log(item);
-                            document.getElementById(item).classList="video-2";
-                        });
-                    }
-
-                    if (participants < 5) {
-                        document.getElementById('WEKEDEWE').classList="video-4";
-                        clientList.forEach((item) => {
-                            console.log(item);
-                            document.getElementById(item).classList="video-4";
-                        });
-                    }
-
+                    
+                    displayMedia(participants);
+                    
                 };
                 newBtnMic.appendChild(newImgMic);
 
@@ -149,27 +135,56 @@
                 var videoContainer = document.getElementById("video-container");
                 videoContainer.appendChild(videoFrame);
                 participants++;
+                console.log('participant :', participants);
 
-                if (participants > 2) {
-                    document.getElementById('WEKEDEWE').classList="video-4";
+                displayMedia(participants);
+            });
+
+            hangupButton.addEventListener("click", () => {
+
+            });
+
+            function displayMedia(participants){
+                if (participants == 2 ) {
+                    document.getElementById('WEKEDEWE').classList="video-2";
                     clientList.forEach((item) => {
                         console.log(item);
-                        document.getElementById(item).classList="video-4";
+                        document.getElementById(item).classList="video-2";
                     });
                 }
 
-                if (participants > 4) {
+                if (participants == 3) {
+                    document.getElementById('WEKEDEWE').classList="video-3";
+                    clientList.forEach((item) => {
+                        console.log(item);
+                        document.getElementById(item).classList="video-3";
+                    });
+                }
+
+                if (participants >= 4 && participants <= 6) {
                     document.getElementById('WEKEDEWE').classList="video-6";
                     clientList.forEach((item) => {
                         console.log(item);
                         document.getElementById(item).classList="video-6";
                     });
                 }
-            });
 
-            hangupButton.addEventListener("click", () => {
+                if (participants >= 7 && participants <= 9) {
+                    document.getElementById('WEKEDEWE').classList="video-8";
+                    clientList.forEach((item) => {
+                        console.log(item);
+                        document.getElementById(item).classList="video-8";
+                    });
+                }
 
-            });
+                if (participants >= 9 && participants <= 13) {
+                    document.getElementById('WEKEDEWE').classList="video-12";
+                    clientList.forEach((item) => {
+                        console.log(item);
+                        document.getElementById(item).classList="video-12";
+                    });
+                }
+            }
         });
     </script>
 
