@@ -47,8 +47,9 @@ export const registerSocketEvents = (socket, client_share) => {
     }
   });
 
-  socket.on("#screen-sharing", (client_id) => {
-    console.log('share:', client_id);
+  socket.on("#screen-sharing", (data) => {
+    console.log('share room:', data.room_id);
+    console.log('share room:', data.client_id);
   });
 
   socket.on("user-hanged-up", (client_id) => {

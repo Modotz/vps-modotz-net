@@ -170,12 +170,20 @@ io.on("connection", (socket) => {
     });
   });
 
-  socket.on("screen-sharing", (client_id) => {
+  socket.on("screen-sharing", async (data) => {
     console.log("screen-sharing");
-    rooms.forEach((item) => {
-      console.log(item.client_id);
-      io.to(item.client_id).emit("#screen-sharing", client_id);
+    // rooms.forEach((item) => {
+    //   console.log(item.client_id);
+    //   io.to(item.client_id).emit("#screen-sharing", client_id);
+    // });
+
+    var room = await Rooms.findOne({room_id: data.room_id})
+    room.participants.forEach(item => {
+      if (item.client_id !== data.client_id) {
+        io.to(item.client_id).emit("#screen-sharing", data);
+      }
     });
+
   });
 
   socket.on("stop-screen-sharing", (client_id) => {
